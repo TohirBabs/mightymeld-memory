@@ -1,16 +1,21 @@
 export function StartScreen({ start }) {
-  
   return (
-    <div className="w-screen h-screen flex items-center justify-center">
-      <div className="flex flex-col gap-8 w-[85vw] max-w-xl items-center justify-center bg-pink-100 text-pink-700 h-[400px] rounded-xl font-mono">
-        <h1 className="text-3xl font-semibold capitalize">memory</h1>
-        <p>flip over tiles looking for pairs</p>
+    <div className="w-screen h-screen flex items-center justify-center bg-black">
+      <div className="flex flex-col gap-4 w-screen items-center relative justify-center  h-screen rounded-xl font-mono">
+        <img src="logo2.svg" className="h-[80vh] md:hidden" />
+        <img src="logo1.svg" className="h-[80vh] absolute  md:block hidden" />
         <button
           onClick={start}
-          className="bg-gradient-to-t from-pink-600 to-pink-300 rounded-full w-40 text-white p-3"
+          className="bg-gradient-to-t from-pink-600 to-pink-300 z-10 rounded-xl w-[90vw] max-w-sm text-lg text-black p-3"
         >
-          Play
+          New Game
         </button>
+        <p className="text-white md:absolute bottom-5 right-5">
+          developed by{" "}
+          <a href="https://tohir-babs.vercel.app/" className="underline">
+            panda🐼
+          </a>
+        </p>
       </div>
     </div>
   );
