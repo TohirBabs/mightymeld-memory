@@ -191,10 +191,10 @@ export function PlayScreen({ end }) {
     };
   
     return (
-        <div className="w-screen h-screen text-blue-700 font-mono flex justify-center items-center">
+        <div className="w-screen h-screen text-indigo-700 font-mono flex justify-center items-center">
         <div className=" flex flex-col items-center justify-center gap-8  ">
-           <p className="capitalize">tries <span className="rounded align-middle p-1  bg-blue-100 ml-2 px-3">{tryCount}</span></p>
-        <div className="grid grid-cols-4 grid-rows-4 gap-4 bg-blue-100 rounded-xl p-4">
+           <p className="capitalize">tries <span className="rounded align-middle p-1  bg-indigo-100 ml-2 px-3">{tryCount}</span></p>
+        <div className="grid grid-cols-4 grid-rows-4 gap-3 bg-indigo-100 rounded-xl p-3">
           {getTiles(16).map((tile, i) => (
             <Tile key={i} flip={() => flip(i)} {...tile} />
           ))}
