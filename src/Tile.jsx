@@ -3,20 +3,20 @@ export function Tile({ content: Content, flip, state }) {
     case "start":
       return (
         <Back
-          className="inline-block h-[86px] md:h-[100px] md:w-[100px] w-[86px] col-span-1  row-span-1 rounded-xl md:rounded-2xl bg-indigo-300 text-center cursor-pointer"
+          className="inline-block h-[82px] md:h-[100px] md:w-[100px] w-[82px] col-span-1  row-span-1 rounded-xl md:rounded-2xl bg-indigo-300 text-center cursor-pointer"
           flip={flip}
         />
       );
     case "flipped":
       return (
-        <Front className="flex items-center justify-center  text-white h-[86px] w-[86px] md:h-[100px] md:w-[100px]  col-span-1  row-span-1 rounded-xl md:rounded-2xl bg-indigo-500 text-center ">
+        <Front className="flex items-center justify-center  text-white h-[82px] w-[82px] md:h-[100px] md:w-[100px]  col-span-1  row-span-1 rounded-xl md:rounded-2xl bg-indigo-500 text-center ">
           
           <div className="text-5xl md:text-6xl ">{Content}</div>
         </Front>
       );
     case "matched":
       return (
-        <Matched className="flex items-center justify-center h-[86px] p-2 w-[86px] md:h-[100px] md:w-[100px]  text-white col-span-1  row-span-1 bg-pink-400 rounded-xl md:rounded-2xl text-center">
+        <Matched className="flex items-center justify-center h-[82px] p-2 w-[82px] md:h-[100px] md:w-[100px]  text-white col-span-1  row-span-1 bg-pink-400 rounded-xl md:rounded-2xl text-center">
           <div className="text-5xl md:text-6xl">{Content}</div>
         </Matched>
       );
