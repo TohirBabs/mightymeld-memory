@@ -1,7 +1,7 @@
 export function StartScreen({ start }) {
   return (
     <div className="w-screen h-screen flex items-center justify-center bg-black">
-      <div className="flex flex-col gap-4 w-screen items-center relative justify-center  h-screen rounded-xl font-mono">
+      <div className="flex flex-col gap-4 w-screen max-w-5xl items-center relative justify-center  h-screen rounded-xl font-mono">
         <img src="logo2.svg" className="h-[80vh] md:hidden" />
         <img src="logo1.svg" className="h-[80vh] absolute  md:block hidden" />
         <button
