@@ -20,8 +20,9 @@ export function PlayScreen({ end, start }) {
   const [tiles, setTiles] = useState(null); 
    const [playState, setPlayState] = useState("playing");
   const [tryCount, setTryCount] = useState(0);
+  const Tiles =[]
 
-  var duration = 15 * 1000;
+  var duration = 3 * 1000;
 var animationEnd = Date.now() + duration;
 var skew = 1;
 
@@ -59,6 +60,8 @@ function frame() {
     frame()
   
   }
+
+
 
   const getTiles = (tileCount) => {
     // Throw error if count is not even.
@@ -162,7 +165,7 @@ console.log(playState);
           {playState === "win" ? <div className="bg-pink-400 rounded-3xl flex flex-col justify-between p-6 h-[340px] w-[340px] md:h-[412px] md:w-[412px]">
             <p className="md:text-5xl text-3xl leading-tight">🔥  <br/> wow! you breezed throgh that</p>
             <button
-          // onClick={()=> }
+          onClick={()=> {setTiles(null); setPlayState("playing")}}
           className="bg-white rounded-xl w-full text-lg md:text-xl text-black p-3"
         >
           Play Again
@@ -172,7 +175,8 @@ console.log(playState);
            <div className="bg-pink-400 rounded-3xl flex flex-col justify-between p-6 h-[340px] w-[340px] md:h-[412px] md:w-[412px]">
             <p className="md:text-5xl text-3xl leading-tight">🤏 <br/> ohh! you were soo close</p>
             <button
-          onClick={()=> setPlayState("playing")}
+                      onClick={()=> {setTiles(null); setPlayState("playing")}}
+
           className="bg-white rounded-xl w-full text-lg md:text-xl text-black p-3"
         >
           Play Again

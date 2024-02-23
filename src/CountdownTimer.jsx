@@ -6,7 +6,7 @@ function CountdownTimer({lose}) {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      if (time.minutes === 0 && time.seconds === 0 && time.milliseconds === 0) {
+      if (time.minutes === 0 && time.seconds === 0) {
         clearInterval(interval);
         // setFinished(true);
         lose("lose")
