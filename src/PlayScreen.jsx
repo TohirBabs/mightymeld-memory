@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import confetti from "canvas-confetti";
 import * as icons from "react-icons/gi";
 import { Tile } from "./Tile";
@@ -16,11 +16,23 @@ export const possibleTileEmojis = [
   "🥶",
 ];
 
-export function PlayScreen({ end, start }) {
+export function PlayScreen({ end }) {
   const [tiles, setTiles] = useState(null); 
    const [playState, setPlayState] = useState("playing");
   const [tryCount, setTryCount] = useState(0);
-  const Tiles =[]
+    const [bestScore, setBestScore] = useState(() => {
+    // Retrieve best score from localStorage, or set to 0 if not present
+    const savedBestScore = localStorage.getItem('bestScore');
+    return savedBestScore ? parseInt(savedBestScore, 10) : 0;
+  });
+
+   useEffect(() => {
+    // Update best score if the current score is lower
+    if (playState === "win" && tryCount < bestScore || bestScore === 0) {
+      setBestScore(tryCount);
+    localStorage.setItem('bestScore', bestScore.toString());
+    }
+  }, [playState]);
 
   var duration = 2 * 1000;
 var animationEnd = Date.now() + duration;
@@ -162,7 +174,7 @@ console.log(playState);
               <span>tries</span> 
             </p>
             <p className=" md:h-[100px] md:w-[100px] h-[82px] w-[82px] text-right flex flex-col items-center justify-center rounded-xl text-white  bg-pink-400 ">
-              <span className=" text-4xl font-bold ">10</span>
+              <span className=" text-4xl font-bold ">{bestScore}</span>
               <span className="leading-4 text-center">best<br/>score</span> 
             </p>
           </div>
