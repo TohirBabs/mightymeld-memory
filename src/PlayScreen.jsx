@@ -122,8 +122,8 @@ console.log(playState);
               <span className="px-3 py-1 text rounded-md">{tryCount}</span>
             </p>
           </div>
-          {playState === "win" ? <div className="bg-pink-400 rounded-3xl flex flex-col justify-between p-6 h-[364px] w-[364px] md:h-[412px] md:w-[412px]">
-            <p className="text-5xl leading-tight">🔥  <br/> wow! you breezed throgh that</p>
+          {playState === "win" ? <div className="bg-pink-400 rounded-3xl flex flex-col justify-between p-6 h-[340px] w-[340px] md:h-[412px] md:w-[412px]">
+            <p className="md:text-5xl text-3xl leading-tight">🔥  <br/> wow! you breezed throgh that</p>
             <button
           onClick={()=> setPlayState("playing")}
           className="bg-white rounded-xl w-full text-lg md:text-xl text-black p-3"
@@ -132,8 +132,8 @@ console.log(playState);
         </button>
            </div>:
                      playState === "lose"?
-           <div className="bg-pink-400 rounded-3xl flex flex-col justify-between p-6 h-[364px] w-[364px] md:h-[412px] md:w-[412px]">
-            <p className="text-5xl leading-normal">🤏 <br/> ohh! you were soo close</p>
+           <div className="bg-pink-400 rounded-3xl flex flex-col justify-between p-6 h-[340px] w-[340px] md:h-[412px] md:w-[412px]">
+            <p className="md:text-5xl text-3xl leading-tight">🤏 <br/> ohh! you were soo close</p>
             <button
           onClick={()=> setPlayState("playing")}
           className="bg-white rounded-xl w-full text-lg md:text-xl text-black p-3"
