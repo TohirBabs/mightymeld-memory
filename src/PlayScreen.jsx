@@ -155,14 +155,14 @@ console.log(playState);
                   }
         </div>
 
-        <div className="pt-[10vh] md:pt-0 flex flex-col gap-6">
+        <div className="pt-[8vh] md:pt-0 flex flex-col gap-4">
           <div className="flex flex-col gap-2 text-white">
-            <p className="capitalize text-right  text-white text-2xl">
-              tries{" "}
-              <span className="h-[60px] w-[60px] text-3xl font-bold flex flex-col items-center justify-center text rounded-md text-black bg-white">{tryCount}</span>
+            <p className="capitalize text-right flex items-center  gap-2  text-white text-2xl">
+              <span className="h-[60px] w-[60px] text-3xl font-bold flex flex-col items-center justify-center text rounded-xl text-black bg-white">{tryCount}</span>
+              <span>{" "}tries</span> 
             </p>
           </div>
-          {playState === "win" ? <div className="bg-pink-400 rounded-3xl flex flex-col justify-between p-6 h-[340px] w-[340px] md:h-[412px] md:w-[412px]">
+          {playState === "win" ? <div className="bg-pink-400 rounded-2xl flex flex-col justify-between p-6 h-[340px] w-[340px] md:h-[412px] md:w-[412px]">
             <p className="md:text-5xl text-3xl leading-tight">🔥  <br/> wow! you breezed throgh that</p>
             <button
           onClick={()=> {setTiles(null); setPlayState("playing"); setTryCount(0)}}
@@ -172,7 +172,7 @@ console.log(playState);
         </button>
            </div>:
                      playState === "lose"?
-           <div className="bg-pink-400 rounded-3xl flex flex-col justify-between p-6 h-[340px] w-[340px] md:h-[412px] md:w-[412px]">
+           <div className="bg-pink-400 rounded-2xl flex flex-col justify-between p-6 h-[340px] w-[340px] md:h-[412px] md:w-[412px]">
             <p className="md:text-5xl text-3xl leading-tight">🤏 <br/> ohh! you were soo close</p>
             <button
                       onClick={()=> {setTiles(null); setPlayState("playing"); setTryCount(0)}}
@@ -188,7 +188,7 @@ console.log(playState);
             ))}
           </div>}
         </div>
-        <div className="flex w-full text-white justify-center p-4">
+        <div className="flex w-full text-white pb-[5vh]  justify-center ">
           <div />
           <p>
             developed by{" "}
