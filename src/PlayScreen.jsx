@@ -143,7 +143,7 @@ console.log(playState);
   return (   
     <>
       <div className="w-screen h-screen flex items-center justify-between flex-col gap-8 font-mono bg-black">
-        <div className="flex justify-between w-full p-3 ">
+        <div className="flex max-w-5xl justify-between w-full p-3 ">
           <img src="logo1.svg" className="h-10"></img>
           {playState === "playing" ?
                     <CountdownTimer lose={setPlayState}/>: 
@@ -156,10 +156,14 @@ console.log(playState);
         </div>
 
         <div className="pt-[8vh] md:pt-0 flex flex-col gap-4">
-          <div className="flex flex-col gap-2 text-white">
-            <p className="capitalize text-right flex items-center  gap-2  text-white text-2xl">
-              <span className="h-[60px] w-[60px] text-3xl font-bold flex flex-col items-center justify-center text rounded-xl text-black bg-white">{tryCount}</span>
-              <span>{" "}tries</span> 
+          <div className="flex justify-between w-full ">
+            <p className=" md:h-[100px] md:w-[100px] h-[82px] w-[82px] text-right flex flex-col items-center justify-center rounded-xl text-black gap-2  bg-white ">
+              <span className=" text-4xl font-bold ">{tryCount}</span>
+              <span>tries</span> 
+            </p>
+            <p className=" md:h-[100px] md:w-[100px] h-[82px] w-[82px] text-right flex flex-col items-center justify-center rounded-xl text-black gap-2  bg-pink-400 ">
+              <span className=" text-4xl font-bold ">10</span>
+              <span className="leading-4">high <br/>score</span> 
             </p>
           </div>
           {playState === "win" ? <div className="bg-pink-400 rounded-2xl flex flex-col justify-between p-6 h-[340px] w-[340px] md:h-[412px] md:w-[412px]">
