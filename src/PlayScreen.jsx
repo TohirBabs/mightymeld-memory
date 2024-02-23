@@ -23,12 +23,12 @@ export function PlayScreen({ end }) {
     const [bestScore, setBestScore] = useState(() => {
     // Retrieve best score from localStorage, or set to 0 if not present
     const savedBestScore = localStorage.getItem('bestScore');
-    return savedBestScore ? parseInt(savedBestScore, 10) : 0;
+    return savedBestScore ? parseInt(savedBestScore, 10) : "--";
   });
 
    useEffect(() => {
     // Update best score if the current score is lower
-    if (playState === "win" && tryCount < bestScore || bestScore === 0) {
+    if (playState === "win" && tryCount < bestScore || playState === "win" && bestScore === "--") {
       setBestScore(tryCount);
     localStorage.setItem('bestScore', bestScore.toString());
     }
@@ -179,7 +179,7 @@ console.log(playState);
             </p>
           </div>
           {playState === "win" ? <div className="bg-pink-400 rounded-2xl flex flex-col justify-between p-6 h-[340px] w-[340px] md:h-[412px] md:w-[412px]">
-            <p className="md:text-5xl text-3xl leading-tight">🔥  <br/> wow! you breezed throgh that</p>
+            <p className="md:text-5xl pt-[10%] text-3xl leading-normal text-center">🔥<br/> wow! you breezed throgh that</p>
             <button
           onClick={()=> {setTiles(null); setPlayState("playing"); setTryCount(0)}}
           className="bg-white rounded-xl w-full text-lg md:text-xl text-black p-3"
@@ -189,7 +189,7 @@ console.log(playState);
            </div>:
                      playState === "lose"?
            <div className="bg-pink-400 rounded-2xl flex flex-col justify-between p-6 h-[340px] w-[340px] md:h-[412px] md:w-[412px]">
-            <p className="md:text-5xl text-3xl leading-tight">🤏 <br/> ohh! you were soo close</p>
+            <p className="md:text-5xl pt-[10%] text-3xl leading-normal text-center">⌛<br/>you ran out of time</p>
             <button
                       onClick={()=> {setTiles(null); setPlayState("playing"); setTryCount(0)}}
 
