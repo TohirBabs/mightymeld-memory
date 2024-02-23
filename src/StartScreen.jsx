@@ -6,7 +6,7 @@ export function StartScreen({ start }) {
         <img src="logo1.svg" className="h-[80vh] absolute  md:block hidden" />
         <button
           onClick={start}
-          className="bg-gradient-to-t from-pink-600 to-pink-300 z-10 rounded-xl w-[90vw] max-w-sm text-lg text-black p-3"
+          className="bg-gradient-to-t from-pink-600 font-bold to-pink-300 z-10 rounded-xl w-[90vw] max-w-sm text-lg md:text-xl text-black p-3"
         >
           New Game
         </button>

@@ -2,22 +2,18 @@ import { useState } from "react";
 import confetti from "canvas-confetti";
 import * as icons from "react-icons/gi";
 import { Tile } from "./Tile";
-
-export const possibleTileContents= [
-  icons.GiHearts,
-  icons.GiWaterDrop,
-  icons.GiDiceSixFacesFive,
-  icons.GiUmbrella,
-  icons.GiCube,
-  icons.GiBeachBall,
-  icons.GiDragonfly,
-  icons.GiHummingbird,
-  icons.GiFlowerEmblem,
-  icons.GiOpenBook,
-];
+import CountdownTimer from "./CountdownTimer";
 
 export const possibleTileEmojis = [
-  <>🐼</>,<>👾</>,<>👺</>,<>👽</>,<>🤖</>,<>🎃</>,<>🤡</>,<>🥶</>
+  "🐼",
+  "💀",
+  "👺",
+  "👽",
+  "👻",
+  "🤖",
+  "🎃",
+  "🤡",
+  "🥶",
 ];
 
 export function PlayScreen({ end }) {
@@ -74,7 +70,6 @@ export function PlayScreen({ end }) {
         });
         newState = "matched";
       }
-
       // After a delay, either flip the tiles back or mark them as matched.
       setTimeout(() => {
         setTiles((prevTiles) => {
@@ -87,7 +82,6 @@ export function PlayScreen({ end }) {
           if (newTiles.every((tile) => tile.state === "matched")) {
             setTimeout(end, 0);
           }
-
           return newTiles;
         });
       }, 1000);
@@ -103,23 +97,33 @@ export function PlayScreen({ end }) {
 
   return (
     <>
-      <div className="w-screen h-screen flex items-center justify-between md:justify-center flex-col gap-8 font-mono bg-black">
-        <div className="flex justify-between w-full p-3 md:absolute top-0">
-          <img src="logo1.svg" className="h-10" />
+      <div className="w-screen h-screen flex items-center justify-between flex-col gap-8 font-mono bg-black">
+        <div className="flex justify-between w-full p-3 ">
+          <img src="logo1.svg" className="h-10"></img>
+          <CountdownTimer/>
         </div>
 
-        <div className="pb-16 flex flex-col gap-16">
-          <p className="capitalize text-white">
-            tries{" "}
-            <span className="px-3 py-1 bg-indigo-100 rounded-md">
-              {tryCount}
-            </span>
-          </p>
+        <div className="pt-[10vh] md:pt-0 flex flex-col gap-6">
+          <div className="flex flex-col gap-2 text-white">
+            <p className="capitalize text-white text-2xl">
+              tries{" "}
+              <span className="px-3 py-1 text rounded-md">{tryCount}</span>
+            </p>
+          </div>
           <div className="grid grid-cols-4 grid-rows-4 gap-1">
             {getTiles(16).map((tile, i) => (
               <Tile key={i} flip={() => flip(i)} {...tile} />
             ))}
           </div>
+        </div>
+        <div className="flex w-full text-white justify-center p-4">
+          <div />
+          <p>
+            developed by{" "}
+            <a href="https://example.com" className="underline">
+              panda🐼
+            </a>
+          </p>
         </div>
       </div>
     </>
