@@ -22,7 +22,7 @@ export function PlayScreen({ end, start }) {
   const [tryCount, setTryCount] = useState(0);
   const Tiles =[]
 
-  var duration = 3 * 1000;
+  var duration = 2 * 1000;
 var animationEnd = Date.now() + duration;
 var skew = 1;
 
@@ -157,15 +157,15 @@ console.log(playState);
 
         <div className="pt-[10vh] md:pt-0 flex flex-col gap-6">
           <div className="flex flex-col gap-2 text-white">
-            <p className="capitalize text-white text-2xl">
+            <p className="capitalize text-right  text-white text-2xl">
               tries{" "}
-              <span className="px-3 py-1 text rounded-md">{tryCount}</span>
+              <span className="h-[60px] w-[60px] text-3xl font-bold flex flex-col items-center justify-center text rounded-md text-black bg-white">{tryCount}</span>
             </p>
           </div>
           {playState === "win" ? <div className="bg-pink-400 rounded-3xl flex flex-col justify-between p-6 h-[340px] w-[340px] md:h-[412px] md:w-[412px]">
             <p className="md:text-5xl text-3xl leading-tight">🔥  <br/> wow! you breezed throgh that</p>
             <button
-          onClick={()=> {setTiles(null); setPlayState("playing")}}
+          onClick={()=> {setTiles(null); setPlayState("playing"); setTryCount(0)}}
           className="bg-white rounded-xl w-full text-lg md:text-xl text-black p-3"
         >
           Play Again
@@ -175,7 +175,7 @@ console.log(playState);
            <div className="bg-pink-400 rounded-3xl flex flex-col justify-between p-6 h-[340px] w-[340px] md:h-[412px] md:w-[412px]">
             <p className="md:text-5xl text-3xl leading-tight">🤏 <br/> ohh! you were soo close</p>
             <button
-                      onClick={()=> {setTiles(null); setPlayState("playing")}}
+                      onClick={()=> {setTiles(null); setPlayState("playing"); setTryCount(0)}}
 
           className="bg-white rounded-xl w-full text-lg md:text-xl text-black p-3"
         >
