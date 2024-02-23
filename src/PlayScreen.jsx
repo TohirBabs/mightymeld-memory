@@ -16,8 +16,11 @@ export const possibleTileEmojis = [
   "🥶",
 ];
 
-export function PlayScreen({ end }) {
-  const [tiles, setTiles] = useState(null);
+export function PlayScreen({ end, start }) {
+  const [tiles, setTiles] = useState(null); 
+   const [playState, setPlayState] = useState("playing");
+
+  
   const [tryCount, setTryCount] = useState(0);
 
   const getTiles = (tileCount) => {
@@ -80,7 +83,7 @@ export function PlayScreen({ end }) {
 
           // If all tiles are matched, the game is over.
           if (newTiles.every((tile) => tile.state === "matched")) {
-            setTimeout(end, 0);
+            setTimeout(setPlayState("win"), 0);
           }
           return newTiles;
         });
@@ -95,12 +98,21 @@ export function PlayScreen({ end }) {
     });
   };
 
-  return (
+  
+console.log(playState);
+  return (   
     <>
       <div className="w-screen h-screen flex items-center justify-between flex-col gap-8 font-mono bg-black">
         <div className="flex justify-between w-full p-3 ">
           <img src="logo1.svg" className="h-10"></img>
-          <CountdownTimer/>
+          {playState === "playing" ?
+                    <CountdownTimer lose={setPlayState}/>: 
+                    <p className="md:text-4xl text-2xl text-white">
+          
+          00:00.
+          <span className="text-base md:text-lg">00</span>
+        </p>
+                  }
         </div>
 
         <div className="pt-[10vh] md:pt-0 flex flex-col gap-6">
@@ -110,11 +122,30 @@ export function PlayScreen({ end }) {
               <span className="px-3 py-1 text rounded-md">{tryCount}</span>
             </p>
           </div>
-          <div className="grid grid-cols-4 grid-rows-4 gap-1">
+          {playState === "win" ? <div className="bg-pink-400 rounded-3xl flex flex-col justify-between p-6 h-[364px] w-[364px] md:h-[412px] md:w-[412px]">
+            <p className="text-5xl leading-tight">🔥  <br/> wow! you breezed throgh that</p>
+            <button
+          onClick={()=> setPlayState("playing")}
+          className="bg-white rounded-xl w-full text-lg md:text-xl text-black p-3"
+        >
+          Play Again
+        </button>
+           </div>:
+                     playState === "lose"?
+           <div className="bg-pink-400 rounded-3xl flex flex-col justify-between p-6 h-[364px] w-[364px] md:h-[412px] md:w-[412px]">
+            <p className="text-5xl leading-normal">🤏 <br/> ohh! you were soo close</p>
+            <button
+          onClick={()=> setPlayState("playing")}
+          className="bg-white rounded-xl w-full text-lg md:text-xl text-black p-3"
+        >
+          Play Again
+        </button>
+           </div>:
+            <div className="grid grid-cols-4 grid-rows-4 gap-1">
             {getTiles(16).map((tile, i) => (
               <Tile key={i} flip={() => flip(i)} {...tile} />
             ))}
-          </div>
+          </div>}
         </div>
         <div className="flex w-full text-white justify-center p-4">
           <div />

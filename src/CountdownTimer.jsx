@@ -1,20 +1,21 @@
 import React, { useState, useEffect } from 'react';
 
-function CountdownTimer() {
-  const [time, setTime] = useState({ minutes: 2, seconds: 0, milliseconds: 0 });
+function CountdownTimer({lose}) {
+  const [time, setTime] = useState({ minutes: 1, seconds: 0, milliseconds: 0 });
   const [finished, setFinished] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
       if (time.minutes === 0 && time.seconds === 0 && time.milliseconds === 0) {
         clearInterval(interval);
-        setFinished(true);
+        // setFinished(true);
+        lose("lose")
       } else {
         setTime(prevTime => {
           let { minutes, seconds, milliseconds } = prevTime;
-          milliseconds -= 10;
+          milliseconds -= 1;
           if (milliseconds < 0) {
-            milliseconds = 990;
+            milliseconds = 99;
             seconds -= 1;
           }
           if (seconds < 0) {
@@ -31,16 +32,12 @@ function CountdownTimer() {
 
   return (
     <>
-        {/* {finished ? (
-          <span>Finished!</span>
-        ) : ( */}
           <p className="md:text-4xl text-2xl text-white">
           
           {time.minutes < 10 ? '0' + time.minutes : time.minutes}:
             {time.seconds < 10 ? '0' + time.seconds : time.seconds}.
-          <span className="text-base md:text-lg">{time.milliseconds < 100
-              ? '0' + (time.milliseconds < 10 ? '0' + time.milliseconds : time.milliseconds)
-              : time.milliseconds}</span>
+          <span className="text-base md:text-lg">{ (time.milliseconds < 10 ? '0' + time.milliseconds : time.milliseconds)
+            }</span>
         </p>
         {/* )} */}
       </>
