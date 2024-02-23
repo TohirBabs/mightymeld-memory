@@ -17,63 +17,63 @@ export const possibleTileEmojis = [
 ];
 
 export function PlayScreen({ end }) {
-  const [tiles, setTiles] = useState(null); 
-   const [playState, setPlayState] = useState("playing");
+  const [tiles, setTiles] = useState(null);
+  const [playState, setPlayState] = useState("playing");
   const [tryCount, setTryCount] = useState(0);
-    const [bestScore, setBestScore] = useState(() => {
+  const [bestScore, setBestScore] = useState(() => {
     // Retrieve best score from localStorage, or set to 0 if not present
-    const savedBestScore = localStorage.getItem('bestScore');
+    const savedBestScore = localStorage.getItem("bestScore");
     return savedBestScore ? parseInt(savedBestScore, 10) : "--";
   });
 
-   useEffect(() => {
+  useEffect(() => {
     // Update best score if the current score is lower
-    if (playState === "win" && tryCount < bestScore || playState === "win" && bestScore === "--") {
+    if (
+      (playState === "win" && tryCount < bestScore) ||
+      (playState === "win" && bestScore === "--")
+    ) {
       setBestScore(tryCount);
-    localStorage.setItem('bestScore', bestScore.toString());
+      localStorage.setItem("bestScore", bestScore.toString());
     }
   }, [playState]);
 
   var duration = 2 * 1000;
-var animationEnd = Date.now() + duration;
-var skew = 1;
+  var animationEnd = Date.now() + duration;
+  var skew = 1;
 
-function randomInRange(min, max) {
-  return Math.random() * (max - min) + min;
-}
-
-function frame() {
-  var timeLeft = animationEnd - Date.now();
-  var ticks = Math.max(200, 500 * (timeLeft / duration));
-  skew = Math.max(0.8, skew - 0.001);
-
-  confetti({
-    particleCount: 1,
-    startVelocity: 0,
-    ticks: ticks,
-    origin: {
-      x: Math.random(),
-      // since particles fall down, skew start toward the top
-      y: (Math.random() * skew) - 0.2
-    },
-    colors: ['#ffffff'],
-    shapes: ['circle'],
-    gravity: randomInRange(0.4, 0.6),
-    scalar: randomInRange(0.4, 1),
-    drift: randomInRange(-0.4, 0.4)
-  });
-
-  if (timeLeft > 0) {
-    requestAnimationFrame(frame);
+  function randomInRange(min, max) {
+    return Math.random() * (max - min) + min;
   }
-}
+
+  function frame() {
+    var timeLeft = animationEnd - Date.now();
+    var ticks = Math.max(200, 500 * (timeLeft / duration));
+    skew = Math.max(0.8, skew - 0.001);
+
+    confetti({
+      particleCount: 1,
+      startVelocity: 0,
+      ticks: ticks,
+      origin: {
+        x: Math.random(),
+        // since particles fall down, skew start toward the top
+        y: Math.random() * skew - 0.2,
+      },
+      colors: ["#ffffff"],
+      shapes: ["circle"],
+      gravity: randomInRange(0.4, 0.6),
+      scalar: randomInRange(0.4, 1),
+      drift: randomInRange(-0.4, 0.4),
+    });
+
+    if (timeLeft > 0) {
+      requestAnimationFrame(frame);
+    }
+  }
 
   if (playState === "win") {
-    frame()
-  
+    frame();
   }
-
-
 
   const getTiles = (tileCount) => {
     // Throw error if count is not even.
@@ -150,61 +150,80 @@ function frame() {
     });
   };
 
-  
-console.log(playState);
-  return (   
+  console.log(playState);
+  return (
     <>
       <div className="w-screen h-screen flex items-center justify-between flex-col gap-8 font-mono bg-black">
         <div className="flex max-w-5xl justify-between w-full p-3 ">
           <img src="logo1.svg" className="h-10"></img>
-          {playState === "playing" ?
-                    <CountdownTimer lose={setPlayState}/>: 
-                    <p className="md:text-4xl text-2xl text-white">
-          
-          00:00.
-          <span className="text-base md:text-lg">00</span>
-        </p>
-                  }
+          {playState === "playing" ? (
+            <CountdownTimer lose={setPlayState} />
+          ) : (
+            <p className="md:text-4xl text-2xl text-white">
+              00:00.
+              <span className="text-base md:text-lg">00</span>
+            </p>
+          )}
         </div>
 
         <div className="pt-[8vh] md:pt-0 flex flex-col gap-4">
           <div className="flex justify-between w-full ">
             <p className=" md:h-[100px] md:w-[100px] h-[82px] w-[82px] text-right flex flex-col items-center justify-center rounded-xl text-black  bg-white ">
               <span className=" text-4xl font-bold ">{tryCount}</span>
-              <span>tries</span> 
+              <span>tries</span>
             </p>
             <p className=" md:h-[100px] md:w-[100px] h-[82px] w-[82px] text-right flex flex-col items-center justify-center rounded-xl text-white  bg-pink-400 ">
               <span className=" text-4xl font-bold ">{bestScore}</span>
-              <span className="leading-4 text-center">best<br/>score</span> 
+              <span className="leading-4 text-center">
+                best
+                <br />
+                score
+              </span>
             </p>
           </div>
-          {playState === "win" ? <div className="bg-pink-400 rounded-2xl flex flex-col justify-between p-6 h-[340px] w-[340px] md:h-[412px] md:w-[412px]">
-            <p className="md:text-5xl pt-[10%] text-3xl leading-normal text-center">🔥<br/> wow! you breezed throgh that</p>
-            <button
-          onClick={()=> {setTiles(null); setPlayState("playing"); setTryCount(0)}}
-          className="bg-white rounded-xl w-full text-lg md:text-xl text-black p-3"
-        >
-          Play Again
-        </button>
-           </div>:
-                     playState === "lose"?
-           <div className="bg-pink-400 rounded-2xl flex flex-col justify-between p-6 h-[340px] w-[340px] md:h-[412px] md:w-[412px]">
-            <p className="md:text-5xl pt-[10%] text-3xl leading-normal text-center">⌛<br/>you ran out of time</p>
-            <button
-                      onClick={()=> {setTiles(null); setPlayState("playing"); setTryCount(0)}}
-
-          className="bg-white rounded-xl w-full text-lg md:text-xl text-black p-3"
-        >
-          Play Again
-        </button>
-           </div>:
+          {playState === "win" ? (
+            <div className="bg-pink-400 rounded-2xl flex flex-col justify-between p-6 h-[340px] w-[340px] md:h-[412px] md:w-[412px]">
+              <p className="md:text-5xl pt-[10%] text-3xl leading-normal text-center">
+                🔥
+                <br /> wow! you breezed throgh that
+              </p>
+              <button
+                onClick={() => {
+                  setTiles(null);
+                  setPlayState("playing");
+                  setTryCount(0);
+                }}
+                className="bg-white rounded-xl w-full text-lg md:text-xl text-black p-3"
+              >
+                Play Again
+              </button>
+            </div>
+          ) : playState === "lose" ? (
+            <div className="bg-pink-400 rounded-2xl flex flex-col justify-between p-6 h-[340px] w-[340px] md:h-[412px] md:w-[412px]">
+              <p className="md:text-5xl pt-[10%] text-3xl leading-normal text-center">
+                ⌛<br />
+                you ran out of time
+              </p>
+              <button
+                onClick={() => {
+                  setTiles(null);
+                  setPlayState("playing");
+                  setTryCount(0);
+                }}
+                className="bg-white rounded-xl w-full text-lg md:text-xl text-black p-3"
+              >
+                Play Again
+              </button>
+            </div>
+          ) : (
             <div className="grid grid-cols-4 grid-rows-4 gap-1">
-            {getTiles(16).map((tile, i) => (
-              <Tile key={i} flip={() => flip(i)} {...tile} />
-            ))}
-          </div>}
+              {getTiles(16).map((tile, i) => (
+                <Tile key={i} flip={() => flip(i)} {...tile} />
+              ))}
+            </div>
+          )}
         </div>
-        <div className="flex w-full text-white pb-[5vh]  justify-center ">
+        <div className="flex w-full text-white pb-[6vh]  justify-center ">
           <div />
           <p>
             developed by{" "}
