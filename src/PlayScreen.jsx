@@ -93,7 +93,7 @@ export function PlayScreen({ end }) {
     const shuffledContents = usedTileContents
       .concat(usedTileContents)
       .sort(() => Math.random() - 0.5)
-      .map((content) => ({ content, state: "start" }));
+      .map((content) => ({ content, state: "play" }));
 
     setTiles(shuffledContents);
     return shuffledContents;
