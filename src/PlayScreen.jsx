@@ -157,13 +157,13 @@ console.log(playState);
 
         <div className="pt-[8vh] md:pt-0 flex flex-col gap-4">
           <div className="flex justify-between w-full ">
-            <p className=" md:h-[100px] md:w-[100px] h-[82px] w-[82px] text-right flex flex-col items-center justify-center rounded-xl text-black gap-2  bg-white ">
+            <p className=" md:h-[100px] md:w-[100px] h-[82px] w-[82px] text-right flex flex-col items-center justify-center rounded-xl text-black  bg-white ">
               <span className=" text-4xl font-bold ">{tryCount}</span>
               <span>tries</span> 
             </p>
-            <p className=" md:h-[100px] md:w-[100px] h-[82px] w-[82px] text-right flex flex-col items-center justify-center rounded-xl text-black gap-2  bg-pink-400 ">
+            <p className=" md:h-[100px] md:w-[100px] h-[82px] w-[82px] text-right flex flex-col items-center justify-center rounded-xl text-white  bg-pink-400 ">
               <span className=" text-4xl font-bold ">10</span>
-              <span className="leading-4">high <br/>score</span> 
+              <span className="leading-4 text-center">best<br/>score</span> 
             </p>
           </div>
           {playState === "win" ? <div className="bg-pink-400 rounded-2xl flex flex-col justify-between p-6 h-[340px] w-[340px] md:h-[412px] md:w-[412px]">
