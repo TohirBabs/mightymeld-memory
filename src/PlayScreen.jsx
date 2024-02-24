@@ -35,7 +35,7 @@ export function PlayScreen({ end }) {
       setBestScore(tryCount);
       localStorage.setItem("bestScore", bestScore.toString());
     }
-  }, [playState]);
+  }, [bestScore, tryCount, playState]);
 
   var duration = 2 * 1000;
   var animationEnd = Date.now() + duration;
