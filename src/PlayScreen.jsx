@@ -150,7 +150,7 @@ export function PlayScreen({ end }) {
     });
   };
 
-  console.log(bestScore);
+  console.log(localStorage.getItem("bestScore"));
   return (
     <>
       <div className="w-screen h-screen flex items-center justify-between flex-col gap-8 font-mono bg-black">
