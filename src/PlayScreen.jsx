@@ -117,13 +117,14 @@ export function PlayScreen({ end }) {
       const alreadyFlippedTile = flippedTiles[0];
       const justFlippedTile = tiles[i];
 
-      let newState = "start";
+      let newState = "play";
 
       if (alreadyFlippedTile.content === justFlippedTile.content) {
         confetti({
           ticks: 100,
         });
         newState = "matched";
+        console.log(newState);
       }
       // After a delay, either flip the tiles back or mark them as matched.
       setTimeout(() => {
