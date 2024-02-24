@@ -23,14 +23,14 @@ export function PlayScreen({ end }) {
   const [bestScore, setBestScore] = useState(() => {
     // Retrieve best score from localStorage, or set to 0 if not present
     const savedBestScore = localStorage.getItem("bestScore");
-    return savedBestScore ? parseInt(savedBestScore, 10) : "--";
+    return savedBestScore ? parseInt(savedBestScore, 10) : 0;
   });
 
   useEffect(() => {
     // Update best score if the current score is lower
     if (
       (playState === "win" && tryCount < bestScore) ||
-      (playState === "win" && bestScore === "--")
+      (playState === "win" && bestScore === 0)
     ) {
       setBestScore(tryCount);
       localStorage.setItem("bestScore", bestScore.toString());
@@ -153,131 +153,96 @@ export function PlayScreen({ end }) {
   console.log(playState);
   return (
     <>
-      <div
-        style={{
-          justifyContent:
-            playState === "leaderboard" ? "flex-start" : "space-between",
-        }}
-        className="w-screen h-screen flex items-center justify-between flex-col gap-8 font-mono bg-black"
-      >
+      <div className="w-screen h-screen flex items-center justify-between flex-col gap-8 font-mono bg-black">
         <div className="flex max-w-5xl justify-between items-center w-full p-3 ">
           <img src="logo1.svg" className="h-10"></img>
-          <button
-            onClick={() => setPlayState("leaderboard")}
-            className=" p-3   text-right flex flex-col items-center justify-center rounded-xl text-white bg-gradient-to-br  from-pink-400 to-indigo-400 "
-          >
-            🏆 leaderboard
-          </button>
+          {playState === "playing" ? (
+            <CountdownTimer lose={setPlayState} />
+          ) : (
+            <p className="md:text-5xl text-4xl text-white">
+              00:00.
+              <span className="text-lg md:text-2xl">00</span>
+            </p>
+          )}
         </div>
-        {playState === "leaderboard" ? (
-          <div className=" flex flex-col gap-2   rounded-xl p-1 bg-white mb-[8vh] ">
-            <div className="flex justify-between w-[90vw] max-w-md items-center  gap-10 rounded-xl ">
-              <div className="flex items-center  text-3xl gap-1  ">
-                <p className="text-3xl p-2">1.</p>
-                <p>🐼</p>
-              </div>
-              <p className=" text-center flex p-3 gap-3 items-center justify-center rounded-lg text-black  bg-gradient-to-br  from-pink-400 to-indigo-400 ">
-                <span className=" text-2xl font-bold ">
-                  <span className="text-lg align-middle">🥇</span>
-                  20
-                </span>
-                <span>tries</span>
-              </p>
-            </div>
-            <div className="flex justify-between w-[90vw] max-w-md items-center  gap-10 rounded-xl ">
-              <div className="flex items-center text-3xl gap-1  ">
-                <p className="text-3xl p-2">2.</p>
-                <p>🦉</p>
-              </div>
-              <p className=" text-center flex p-3 gap-3 items-center justify-center rounded-lg text-black  bg-gradient-to-br  from-pink-400 to-indigo-400 ">
-                <span className=" text-2xl font-bold ">
-                  <span className="text-lg align-middle">🥈</span>
-                  24
-                </span>
-                <span>tries</span>
-              </p>
-            </div>
+        <div className="pt-[8vh] md:pt-0 flex flex-col gap-4">
+          <div className="flex justify-between items-end   w-full ">
+            <p
+              style={{
+                backgroundColor:
+                  playState === "win"
+                    ? "rgb(134 239 172)"
+                    : playState === "lose"
+                    ? "rgb(248 113 113)"
+                    : "white",
+              }}
+              className=" md:h-[100px] md:w-[100px] h-[82px] w-[82px] text-right flex flex-col items-center justify-center rounded-xl text-black  bg-white "
+            >
+              <span className=" text-4xl font-bold ">{tryCount}</span>
+              <span>tries</span>
+            </p>
+            <p className=" md:h-[100px] md:w-[100px] h-[82px] w-[82px] text-right flex flex-col items-center justify-center rounded-xl text-black bg-gradient-to-br from-pink-400 to-indigo-400 ">
+              <span className=" text-4xl font-bold ">
+                {bestScore === 0 ? "--" : bestScore}
+              </span>
+              <span className=" text-center leading-none">
+                best
+                <br />
+                score
+              </span>
+            </p>
           </div>
-        ) : (
-          <>
-            <div className="pt-[8vh] md:pt-0 flex flex-col gap-4">
-              <div className="flex justify-between items-end   w-full ">
-                {playState === "playing" ? (
-                  <CountdownTimer lose={setPlayState} />
-                ) : (
-                  <p className="md:text-6xl text-3xl text-white">
-                    00:00.
-                    <span className="text-base md:text-2xl">00</span>
-                  </p>
-                )}
-                <p
-                  style={{
-                    backgroundColor:
-                      playState === "win"
-                        ? "rgb(134 239 172)"
-                        : playState === "lose"
-                        ? "rgb(248 113 113)"
-                        : "white",
-                  }}
-                  className=" md:h-[100px] md:w-[100px] h-[82px] w-[82px] text-right flex flex-col items-center justify-center rounded-xl text-black  bg-white "
-                >
-                  <span className=" text-4xl font-bold ">{tryCount}</span>
-                  <span>tries</span>
-                </p>
-              </div>
-              {playState === "win" ? (
-                <div className="bg-pink-400 rounded-2xl flex flex-col justify-between p-6 h-[340px] w-[340px] md:h-[412px] md:w-[412px]">
-                  <p className="md:text-5xl pt-[10%] text-3xl leading-normal text-center">
-                    🔥
-                    <br /> wow! you breezed throgh that
-                  </p>
-                  <button
-                    onClick={() => {
-                      setTiles(null);
-                      setPlayState("playing");
-                      setTryCount(0);
-                    }}
-                    className="bg-white rounded-xl w-full text-lg md:text-xl text-black p-3"
-                  >
-                    Play Again
-                  </button>
-                </div>
-              ) : playState === "lose" ? (
-                <div className="bg-pink-400 rounded-2xl flex flex-col justify-between p-6 h-[340px] w-[340px] md:h-[412px] md:w-[412px]">
-                  <p className="md:text-5xl pt-[10%] text-3xl leading-normal text-center">
-                    ⌛<br />
-                    you ran out of time
-                  </p>
-                  <button
-                    onClick={() => {
-                      setTiles(null);
-                      setPlayState("playing");
-                      setTryCount(0);
-                    }}
-                    className="bg-white rounded-xl w-full text-lg md:text-xl text-black p-3"
-                  >
-                    Play Again
-                  </button>
-                </div>
-              ) : (
-                <div className="grid grid-cols-4 grid-rows-4 gap-1">
-                  {getTiles(16).map((tile, i) => (
-                    <Tile key={i} flip={() => flip(i)} {...tile} />
-                  ))}
-                </div>
-              )}
-            </div>
-            <div className="flex w-full text-white pb-[6vh]  justify-center ">
-              <div />
-              <p>
-                developed by{" "}
-                <a href="https://tohir-babs.vercel.app/" className="underline">
-                  panda🐼
-                </a>
+          {playState === "win" ? (
+            <div className="bg-pink-400 rounded-2xl flex flex-col justify-between p-6 h-[340px] w-[340px] md:h-[412px] md:w-[412px]">
+              <p className="md:text-5xl pt-[10%] text-3xl leading-normal text-center">
+                🔥
+                <br /> wow! you breezed throgh that
               </p>
+              <button
+                onClick={() => {
+                  setTiles(null);
+                  setPlayState("playing");
+                  setTryCount(0);
+                }}
+                className="bg-white rounded-xl w-full text-lg md:text-xl text-black p-3"
+              >
+                Play Again
+              </button>
             </div>
-          </>
-        )}
+          ) : playState === "lose" ? (
+            <div className="bg-pink-400 rounded-2xl flex flex-col justify-between p-6 h-[340px] w-[340px] md:h-[412px] md:w-[412px]">
+              <p className="md:text-5xl pt-[10%] text-3xl leading-normal text-center">
+                ⌛<br />
+                you ran out of time
+              </p>
+              <button
+                onClick={() => {
+                  setTiles(null);
+                  setPlayState("playing");
+                  setTryCount(0);
+                }}
+                className="bg-white rounded-xl w-full text-lg md:text-xl text-black p-3"
+              >
+                Play Again
+              </button>
+            </div>
+          ) : (
+            <div className="grid grid-cols-4 grid-rows-4 gap-1">
+              {getTiles(16).map((tile, i) => (
+                <Tile key={i} flip={() => flip(i)} {...tile} />
+              ))}
+            </div>
+          )}
+        </div>
+        <div className="flex w-full text-white pb-[6vh]  justify-center ">
+          <div />
+          <p>
+            developed by{" "}
+            <a href="https://tohir-babs.vercel.app/" className="underline">
+              panda🐼
+            </a>
+          </p>
+        </div>
       </div>
     </>
   );

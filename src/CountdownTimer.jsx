@@ -40,7 +40,7 @@ function CountdownTimer({ lose }) {
         style={{
           color: time.seconds < 10 && time.minutes === 0 ? "red" : "white",
         }}
-        className="md:text-6xl text-4xl "
+        className="md:text-5xl text-4xl "
       >
         {time.minutes < 10 ? "0" + time.minutes : time.minutes}:
         {time.seconds < 10 ? "0" + time.seconds : time.seconds}.
