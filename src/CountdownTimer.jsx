@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 
 function CountdownTimer({ lose }) {
   const [time, setTime] = useState({
-    minutes: 2,
-    seconds: 0,
+    minutes: 1,
+    seconds: 1,
     milliseconds: 0,
   });
   const [finished, setFinished] = useState(false);
@@ -37,12 +37,14 @@ function CountdownTimer({ lose }) {
   return (
     <>
       <p
-        style={{ color: time.seconds < 10 ? "red" : "white" }}
-        className="md:text-4xl text-2xl "
+        style={{
+          color: time.seconds < 10 && time.minutes === 0 ? "red" : "white",
+        }}
+        className="md:text-6xl text-4xl "
       >
         {time.minutes < 10 ? "0" + time.minutes : time.minutes}:
         {time.seconds < 10 ? "0" + time.seconds : time.seconds}.
-        <span className="text-base md:text-lg">
+        <span className="text-lg md:text-2xl">
           {time.milliseconds < 10 ? "0" + time.milliseconds : time.milliseconds}
         </span>
       </p>

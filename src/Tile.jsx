@@ -70,7 +70,6 @@
 // }
 
 export function Tile({ content: Content, flip, state }) {
-  console.log(state);
   if (state === "play" || state === "flipped") {
     return (
       <div

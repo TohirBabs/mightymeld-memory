@@ -124,7 +124,6 @@ export function PlayScreen({ end }) {
           ticks: 100,
         });
         newState = "matched";
-        console.log(newState);
       }
       // After a delay, either flip the tiles back or mark them as matched.
       setTimeout(() => {
@@ -155,31 +154,36 @@ export function PlayScreen({ end }) {
   return (
     <>
       <div className="w-screen h-screen flex items-center justify-between flex-col gap-8 font-mono bg-black">
-        <div className="flex max-w-5xl justify-between w-full p-3 ">
+        <div className="flex max-w-5xl justify-between items-center w-full p-3 ">
           <img src="logo1.svg" className="h-10"></img>
-          {playState === "playing" ? (
-            <CountdownTimer lose={setPlayState} />
-          ) : (
-            <p className="md:text-4xl text-2xl text-white">
-              00:00.
-              <span className="text-base md:text-lg">00</span>
-            </p>
-          )}
+          <p className=" p-3   text-right flex flex-col items-center justify-center rounded-xl text-white bg-gradient-to-br  from-pink-400 to-indigo-400 ">
+            🏆 leaderboard
+          </p>
         </div>
 
         <div className="pt-[8vh] md:pt-0 flex flex-col gap-4">
-          <div className="flex justify-between w-full ">
-            <p className=" md:h-[100px] md:w-[100px] h-[82px] w-[82px] text-right flex flex-col items-center justify-center rounded-xl text-black  bg-white ">
+          <div className="flex justify-between items-end   w-full ">
+            {playState === "playing" ? (
+              <CountdownTimer lose={setPlayState} />
+            ) : (
+              <p className="md:text-6xl text-3xl text-white">
+                00:00.
+                <span className="text-base md:text-2xl">00</span>
+              </p>
+            )}
+            <p
+              style={{
+                backgroundColor:
+                  playState === "win"
+                    ? "rgb(134 239 172)"
+                    : playState === "lose"
+                    ? "rgb(248 113 113)"
+                    : "white",
+              }}
+              className=" md:h-[100px] md:w-[100px] h-[82px] w-[82px] text-right flex flex-col items-center justify-center rounded-xl text-black  bg-white "
+            >
               <span className=" text-4xl font-bold ">{tryCount}</span>
               <span>tries</span>
-            </p>
-            <p className=" md:h-[100px] md:w-[100px] h-[82px] w-[82px] text-right flex flex-col items-center justify-center rounded-xl text-white  bg-pink-400 ">
-              <span className=" text-4xl font-bold ">{bestScore}</span>
-              <span className="leading-4 text-center">
-                best
-                <br />
-                score
-              </span>
             </p>
           </div>
           {playState === "win" ? (
