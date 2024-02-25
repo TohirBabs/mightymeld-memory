@@ -6,7 +6,6 @@ function CountdownTimer({ lose }) {
     seconds: 1,
     milliseconds: 0,
   });
-  const [finished, setFinished] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
