@@ -14,7 +14,7 @@ export function StartScreen({ start }) {
         </button>
         <p className="text-white md:text-lg md:absolute bottom-20 ">
           developed by{" "}
-          <a href="https://tohir-babs.vercel.app/" className="underline">
+          <a href="https://tohir.vercel.app/" className="underline">
             panda🐼
           </a>
         </p>
