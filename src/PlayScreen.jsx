@@ -236,7 +236,7 @@ export function PlayScreen({ end }) {
         <div />
         <p>
           developed by{" "}
-          <a href="https://tohir-babs.vercel.app/" className="underline">
+          <a href="https://tohir.vercel.app/" className="underline">
             panda🐼
           </a>
         </p>
